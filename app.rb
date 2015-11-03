@@ -86,7 +86,6 @@ Checkouts.create(:book_id => '2', :user_id => '2', :checkout_date => '2015-10-23
 
 get '/' do
   erb :landing_page
-  dbGetBooks()
 end
 
 get '/library' do
@@ -197,18 +196,18 @@ end
 ## Checkout Related
 get '/api/db/get-checkout' do
   checkout_id = params[:checkout_id]
-  dataset= DB["SELECT c.*, u.first_name, u.last_name FROM checkouts c join users u on u.user_id = c.user_id WHERE c.checkout_id = #{checkout_id}"].all  
+  dataset= DB["SELECT c.*, b.title, b.subtitle, u.first_name, u.last_name FROM ((checkouts c ((join users u on u.user_id = c.user_id) join books b on b.book_id = c.book_id) WHERE c.checkout_id = #{checkout_id}"].all  
   dataset.to_json
 end
 
 get '/api/db/get-user-checkouts' do
   user_id = params[:user_id]
-  dataset= DB["SELECT c.*, u.first_name, u.last_name FROM checkouts c join users u on u.user_id = c.user_id WHERE c.user_id = #{user_id}"].all  
+  dataset= DB["SELECT c.*, b.title, b.subtitle, u.first_name, u.last_name FROM ((checkouts c join users u on u.user_id = c.user_id) join books b on b.book_id = c.book_id) WHERE c.user_id = #{user_id}"].all  
   dataset.to_json
 end
 
 get '/api/db/get-checkouts' do
-  dataset= DB['SELECT c.*, u.first_name, u.last_name FROM checkouts c join users u on u.user_id = c.user_id'].all  
+  dataset= DB['SELECT c.*, b.title, b.subtitle, u.first_name, u.last_name FROM ((checkouts c join users u on u.user_id = c.user_id) join books b on b.book_id = c.book_id)'].all  
   dataset.to_json
 end
 
