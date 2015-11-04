@@ -1,3 +1,6 @@
+# Purpose: Frontend will make calls to this middleware, which in turn will make
+# the appropriate action on the database
+
 require 'open-uri'
 require 'uri'
 require 'date'

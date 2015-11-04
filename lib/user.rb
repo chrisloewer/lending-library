@@ -1,4 +1,5 @@
 require 'active_support/all'
+require 'sinatra/cookies'
 require 'securerandom'
 require 'bcrypt'
 
@@ -55,9 +56,9 @@ class User
     return nil if params[:username].blank? || params[:password].blank? || params[:email].blank?
 
     f_username = params[:username].downcase
-    @users = Users.where(:username => f_username).all
+    @user_list = Users.where(:username => f_username).all
 
-    if @users.count == 0
+    if @user_list.count == 0
       token = SecureRandom.base64(16)
 
       Users.create(
@@ -67,14 +68,19 @@ class User
         :token => token
       )
 
-      return User.new(:name => f_username, :token => token)
+      return true, User.new(:name => f_username, :token => token)
     else
-      return 'Username is already in use.'
+      return false, 'Username is already in use.'
     end
   end
 
-  def self.authenticate(params = {})
 
+  # Get user ID
+  def self.authenticate(token)
+    return nil if token.blank?
+
+    user = Users.where(:token => token).first
+    return user.user_id
   end
 
 end
