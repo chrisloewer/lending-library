@@ -1,5 +1,20 @@
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['add_book_form'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
+
+  return "<form class=\"add-book\" method=\"post\" action=\"/mw/add_book\">\n  <fieldset>\n    <label>Title: </label>\n    <input type=\"text\" name=\"title\" placeholder=\"Title\" value=\""
+    + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.items : depth0)) != null ? stack1["0"] : stack1)) != null ? stack1.volumeInfo : stack1)) != null ? stack1.title : stack1), depth0))
+    + "\">\n  </fieldset>\n  <fieldset>\n    <label>Sub-Title: </label>\n    <input type=\"text\" name=\"subtitle\" placeholder=\"Sub-Title\" value=\""
+    + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.items : depth0)) != null ? stack1["0"] : stack1)) != null ? stack1.volumeInfo : stack1)) != null ? stack1.subtitle : stack1), depth0))
+    + "\">\n  </fieldset>\n  <fieldset>\n    <label>Author: </label>\n    <input type=\"text\" name=\"author\" placeholder=\"Author\" value=\""
+    + alias2(alias1(((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.items : depth0)) != null ? stack1["0"] : stack1)) != null ? stack1.volumeInfo : stack1)) != null ? stack1.authors : stack1)) != null ? stack1["0"] : stack1), depth0))
+    + "\">\n  </fieldset>\n  <fieldset>\n    <label>ISBN: </label>\n    <input type=\"text\" name=\"isbn\" placeholder=\"ISBN\" value=\""
+    + alias2(alias1(((stack1 = ((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.items : depth0)) != null ? stack1["0"] : stack1)) != null ? stack1.volumeInfo : stack1)) != null ? stack1.industryIdentifiers : stack1)) != null ? stack1["0"] : stack1)) != null ? stack1.identifier : stack1), depth0))
+    + "\">\n  </fieldset>\n  <fieldset>\n    <label>Publication Year: </label>\n    <input type=\"text\" name=\"publication_year\" placeholder=\"Publication Year\" value=\""
+    + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.items : depth0)) != null ? stack1["0"] : stack1)) != null ? stack1.volumeInfo : stack1)) != null ? stack1.publishedDate : stack1), depth0))
+    + "\">\n  </fieldset>\n\n  <fieldset>\n    <input  type=\"submit\" class=\"button-light button-small\" id=\"submitButton\" value=\"Add Book\">\n  </fieldset>\n</form>\n";
+},"useData":true});
 templates['library'] = template({"1":function(container,depth0,helpers,partials,data) {
     var alias1=container.lambda, alias2=container.escapeExpression;
 

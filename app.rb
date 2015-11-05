@@ -28,6 +28,10 @@ get '/signup' do
   erb :signup
 end
 
+get '/add_book' do
+  erb :add_book
+end
+
 
 # API
 get '/api/google-api/isbn-info' do

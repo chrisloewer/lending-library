@@ -5,19 +5,30 @@ require 'open-uri'
 require 'uri'
 require 'date'
 
+require_relative('../app')
+require_relative('../lib/utilities')
+
+# PUBLIC ROUTES
+post '/mw/add_book' do
+  dbAddBook(params[:title], params[:subtitle], params[:author], params[:isbn], params[:publication_year])
+end
+
+
 # Start Database Middleware
-def dbAddBook(title, subtitle, author, isbn, edition, publication_year, user_id, location)
+def dbAddBook(title, subtitle, author, isbn, publication_year, edition='', location='')
+
+  user_id = get_id
 
   uri = URI.parse("http://localhost:#{settings.port}/api/db/add-book")
   uri.query = URI.encode_www_form(
-    'title' => title,
-    'subtitle' => subtitle,
-    'author' => author,
-    'isbn' => isbn,
-    'edition' => edition,
-    'publication_year' => publication_year,
+    'title' => sanitize_text(title),
+    'subtitle' => sanitize_text(subtitle),
+    'author' => sanitize_text(author),
+    'isbn' => sanitize_text(isbn),
+    'edition' => sanitize_text(edition),
+    'publication_year' => sanitize_text(publication_year),
     'user_id' => user_id,
-    'location' => location
+    'location' => sanitize_text(location)
   )
   content = open(uri.to_s).read
   return content

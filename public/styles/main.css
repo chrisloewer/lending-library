@@ -177,6 +177,12 @@ label {
 input {
   width: 150px; }
 
+.add-book label {
+  width: 150px;
+  text-align: right; }
+.add-book input {
+  width: 300px; }
+
 .footer {
   min-height: 150px;
   padding: 50px 20% 20px 20%;
@@ -213,7 +219,7 @@ input {
   background-color: #0b1d29; }
 
 .button-light {
-  border: 1px solid white;
+  border: 1px solid black;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
@@ -230,6 +236,10 @@ input {
 
 .button-light:active {
   background-color: #829bb2; }
+
+.button-small {
+  font-size: 20px;
+  padding: 5px 15px; }
 
 .w400 {
   font-size: inherit;

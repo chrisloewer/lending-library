@@ -1,6 +1,6 @@
 window.onload = function() {
   document.getElementById('splash-login-button').addEventListener('click', showForm, false);
-}
+};
 
 
 function showForm() {

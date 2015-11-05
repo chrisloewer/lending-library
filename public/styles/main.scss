@@ -12,6 +12,7 @@ $main-color-1: #cfdfe7;
 $main-color-2: #FFFFFF;
 $secondary-font-color: #FFFFFF;
 $alternate-color-1: #8f3530;
+$font-p-size: 20px;
 // Mix-ins
 @mixin border-radius($r) {
   -webkit-border-radius: $r;
@@ -30,14 +31,14 @@ body, html {
 body{
   background-color: $main-color-2;
   font-weight: 200;
-  font-size: 20px;
+  font-size: $font-p-size;
   line-height: 1.5;
 }
 fieldset {
   border: none;
 }
 p {
-  font-size: 20px;
+  font-size: $font-p-size;
 }
 a {
   color: inherit;
@@ -87,7 +88,7 @@ input[type='submit'] {
     transition-delay: .75s;
   }
   li {
-    line-height: 20px;
+    line-height: $font-p-size;
     padding: 10px 20px;
     border-bottom: 1px solid black;
     cursor: pointer;
@@ -243,6 +244,16 @@ input {
   width: 150px;
 }
 
+.add-book {
+  label {
+    width: 150px;
+    text-align: right;
+  }
+  input {
+    width: 300px;
+  }
+}
+
 
 // FOOTER
 .footer {
@@ -289,7 +300,7 @@ input {
 
 
 .button-light {
-  border: 1px solid white;
+  border: 1px solid black;
   @include border-radius(20px);
   background-color: $main-color-1;
 
@@ -305,6 +316,11 @@ input {
 }
 .button-light:active {
   background-color: $highlight-color-4;
+}
+
+.button-small {
+  font-size: $font-p-size;
+  padding: 5px 15px;
 }
 
 // UTILITIES

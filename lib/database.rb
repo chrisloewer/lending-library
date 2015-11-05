@@ -60,12 +60,13 @@ get '/api/db/add-book' do
   isbn = params[:isbn]
   edition = params[:edition]
   publication_year = params[:publication_year]
-  user_id = params[:user_id]
+  user_id = params[:user_id].to_i
   location = params[:location]
 
   query = 'INSERT INTO books (title, subtitle, author, isbn, edition, publication_year, user_id, location)'
   query += "VALUES ('#{title}', '#{subtitle}', '#{author}', '#{isbn}', '#{edition}', '#{publication_year}', #{user_id}, '#{location}')"
   dataset = DB[query].all
+  puts dataset
 end
 
 get '/api/db/remove-book' do
