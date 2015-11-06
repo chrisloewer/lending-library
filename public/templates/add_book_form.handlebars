@@ -13,7 +13,7 @@
   </fieldset>
   <fieldset>
     <label>ISBN: </label>
-    <input type="text" name="isbn" placeholder="ISBN" value="{{items.[0].volumeInfo.industryIdentifiers.[0].identifier}}">
+    <input type="text" name="isbn" placeholder="ISBN" value="{{#if items.[0].volumeInfo.industryIdentifiers.[0].identifier}}{{items.[0].volumeInfo.industryIdentifiers.[0].identifier}}{{else}}{{items.[1].volumeInfo.industryIdentifiers.[0].identifier}}{{/if}}">
   </fieldset>
   <fieldset>
     <label>Publication Year: </label>
