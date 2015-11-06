@@ -38,6 +38,12 @@ get '/api/mw/get-books' do
   return content
 end
 
+get '/api/mw/get-current-user-books' do
+  user_id = get_id()
+  content = open("http://localhost:#{settings.port}/api/db/get-user-books?user_id=#{user_id}").read
+  return content
+end
+
 get '/api/mw/get-user-books' do
   user_id = params[:user_id]
   content = open("http://localhost:#{settings.port}/api/db/get-user-books?user_id=#{user_id}").read
@@ -62,6 +68,12 @@ end
 get '/api/mw/get-checkout' do
   checkout_id = params[:checkout_id]
   content = open("http://localhost:#{settings.port}/api/db/get-checkout?checkout_id=#{checkout_id}").read
+  return content
+end
+
+get '/api/mw/get-current-user-checkouts' do
+  user_id = get_id()
+  content = open("http://localhost:#{settings.port}/api/db/get-user-checkouts?user_id=#{user_id}").read
   return content
 end
 

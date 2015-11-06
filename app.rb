@@ -24,6 +24,10 @@ get '/library' do
   erb :library
 end
 
+get '/bookbag' do
+  erb :bookbag
+end
+
 get '/signup' do
   erb :signup
 end
