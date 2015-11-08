@@ -9,13 +9,38 @@ require_relative('../app')
 require_relative('../lib/utilities')
 
 # PUBLIC ROUTES
-post '/mw/add_book' do
-  dbAddBook(params[:title], params[:subtitle], params[:author], params[:isbn], params[:publication_year])
+
+post '/api/mw/add-book' do
+  mw_addBook(params[:title], params[:subtitle], params[:author], params[:isbn], params[:publication_year])
+end
+
+get '/api/mw/get-book' do
+  book_id = params[:book_id]
+  mw_getUserBooks(book_id)
+end
+
+get '/api/mw/get-books' do
+  mw_getBooks
+end
+
+get '/api/mw/get-current-user-books' do
+  mw_getCurrentUserBooks
+end
+
+get '/api/mw/search-books' do
+  search_field = params[:search_field]
+  search_by = params[:search_by]
+  mw_searchBooks(search_field,search_by)
+end
+
+get '/api/mw/get-current-user-checkouts' do
+  mw_getUserCheckouts(get_id)
 end
 
 
-# Start Database Middleware
-def dbAddBook(title, subtitle, author, isbn, publication_year, edition='', location='')
+# DATABASE MIDDLEWARE
+
+def mw_addBook(title, subtitle, author, isbn, publication_year, edition='', location='')
 
   user_id = get_id
 
@@ -34,27 +59,31 @@ def dbAddBook(title, subtitle, author, isbn, publication_year, edition='', locat
   return content
 end
 
-def dbRemoveBook(bookId)
+def mw_removeBook(bookId)
   content = open("http://localhost:#{settings.port}/api/db/remove-book?book_id=#{bookId}").read
   return content
 end
 
-def dbGetBook(bookId)
+def mw_getBook(bookId)
   content = open("http://localhost:#{settings.port}/api/db/get-book?book_id=#{bookId}").read
   return content
 end
 
-def dbGetBooks()
+def mw_getBooks
   content = open("http://localhost:#{settings.port}/api/db/get-books").read
   return content
 end
 
-def dbGetUserBooks(userId)
+def mw_getCurrentUserBooks
+  mw_getUserBooks(get_id)
+end
+
+def mw_getUserBooks(userId)
   content = open("http://localhost:#{settings.port}/api/db/get-user-books?user_id=#{userId}").read
   return content
 end
 
-def dbSearchBooks(searchField, searchBy)
+def mw_searchBooks(searchField, searchBy)
 
   return nil unless ['title', 'author', 'isbn', 'edition', 'publication_year', 'location'].include? searchField
 
@@ -68,28 +97,28 @@ def dbSearchBooks(searchField, searchBy)
 end
 
 ## Checkout Related
-def dbGetCheckout(checkoutId)
+def mw_getCheckout(checkoutId)
   content = open("http://localhost:#{settings.port}/api/db/get-checkout?checkout_id=#{checkoutId}").read
   return content
 end
 
-def dbGetUserCheckouts(userId)
+def mw_getUserCheckouts(userId)
   content = open("http://localhost:#{settings.port}/api/db/get-user-checkouts?user_id=#{userId}").read
   return content
 end
 
-def dbGetCheckouts()
+def mw_getCheckouts
   content = open("http://localhost:#{settings.port}/api/db/get-checkouts").read
   return content
 end
 
-def dbCheckoutBook(bookId, userId)
+def mw_checkoutBook(bookId, userId)
   current_time = DateTime.now
   # Add two weeks to the current date
   due_time = Time.now + (2*7*24*60*60)
   
 
-  # Get the dates from the vareables
+  # Get the dates from the variables
   checkoutDate = current_time.strftime "%Y-%m-%d"
   dueDate = due_time.strftime "%Y-%m-%d"
   
@@ -104,10 +133,10 @@ def dbCheckoutBook(bookId, userId)
   return content
 end
 
-def dbReturnBook(checkoutId, returnCondition)  
+def mw_returnBook(checkoutId, returnCondition)
   current_time = DateTime.now
 
-  returnDate = current_time.strftime "%Y-%m-%d"
+  returnDate = current_time.strftime '%Y-%m-%d'
   
   uri = URI.parse("http://localhost:#{settings.port}/api/db/return-book")
   uri.query = URI.encode_www_form(
