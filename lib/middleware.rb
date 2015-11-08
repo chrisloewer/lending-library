@@ -92,7 +92,7 @@ def dbCheckoutBook(bookId, userId)
   # Get the dates from the vareables
   checkoutDate = current_time.strftime "%Y-%m-%d"
   dueDate = due_time.strftime "%Y-%m-%d"
-
+  
   uri = URI.parse("http://localhost:#{settings.port}/api/db/checkout-book")
   uri.query = URI.encode_www_form(
     'book_id' => bookId,
@@ -108,7 +108,7 @@ def dbReturnBook(checkoutId, returnCondition)
   current_time = DateTime.now
 
   returnDate = current_time.strftime "%Y-%m-%d"
-
+  
   uri = URI.parse("http://localhost:#{settings.port}/api/db/return-book")
   uri.query = URI.encode_www_form(
     'checkout_id' => checkoutId,

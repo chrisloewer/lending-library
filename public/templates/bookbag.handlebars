@@ -1,0 +1,27 @@
+<div class="main-container">
+  <h1>Your Bookbag</h1>
+  
+  {{#if this.length}}
+  <table class="library-list">
+    <tr>
+      <th>Title</th>
+      <th>Subtitle</th>
+      <th>Checkout Date</th>
+      <th>Due Date</th>
+      <th>Owner</th>      
+    </tr>
+  {{/if}}
+
+    {{#each this}}
+      <tr class="book-item">
+        <td>{{this.title}}</td>
+        <td>{{this.subtitle}}</td>
+        <td>{{this.checkout_date}}</td>
+        <td>{{this.due_date}}</td>
+        <td>{{this.first_name}} {{this.last_name}}</td>
+      </tr>
+    {{else}}
+      <h3>You have no items in your Bookbag<h3>
+    {{/each}}
+  </table>
+</div>
