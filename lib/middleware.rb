@@ -5,6 +5,7 @@ require 'open-uri'
 require 'uri'
 require 'date'
 
+require_relative('database')
 require_relative('../app')
 require_relative('../lib/utilities')
 
@@ -34,7 +35,7 @@ get '/api/mw/search-books' do
 end
 
 get '/api/mw/get-current-user-checkouts' do
-  mw_getUserCheckouts(get_id)
+  mw_getCurrentUserCheckouts(get_id)
 end
 
 
@@ -44,42 +45,41 @@ def mw_addBook(title, subtitle, author, isbn, publication_year, edition='', loca
 
   user_id = get_id
 
-  uri = URI.parse("http://localhost:#{settings.port}/api/db/add-book")
-  uri.query = URI.encode_www_form(
-    'title' => sanitize_text(title),
-    'subtitle' => sanitize_text(subtitle),
-    'author' => sanitize_text(author),
-    'isbn' => sanitize_text(isbn),
-    'edition' => sanitize_text(edition),
-    'publication_year' => sanitize_text(publication_year),
-    'user_id' => user_id,
-    'location' => sanitize_text(location)
+  content = Database.addBook(
+    sanitize_text(title),
+    sanitize_text(subtitle),
+    sanitize_text(author),
+    sanitize_text(isbn),
+    sanitize_text(edition),
+    sanitize_text(publication_year),
+    user_id,
+    sanitize_text(location)
   )
-  content = open(uri.to_s).read
   return content
 end
 
 def mw_removeBook(bookId)
-  content = open("http://localhost:#{settings.port}/api/db/remove-book?book_id=#{bookId}").read
+  content = Database.removeBook(bookId)
   return content
 end
 
 def mw_getBook(bookId)
-  content = open("http://localhost:#{settings.port}/api/db/get-book?book_id=#{bookId}").read
+  content = Database.getBook(bookId)  
   return content
 end
 
 def mw_getBooks
-  content = open("http://localhost:#{settings.port}/api/db/get-books").read
+  content = Database.getBooks()
   return content
 end
 
 def mw_getCurrentUserBooks
-  mw_getUserBooks(get_id)
+  content = mw_getUserBooks(get_id)
+  return content
 end
 
 def mw_getUserBooks(userId)
-  content = open("http://localhost:#{settings.port}/api/db/get-user-books?user_id=#{userId}").read
+  content = Database.getUserBooks(userId)
   return content
 end
 
@@ -88,27 +88,33 @@ def mw_searchBooks(searchField, searchBy)
   return nil unless ['title', 'author', 'isbn', 'edition', 'publication_year', 'location'].include? searchField
 
   if searchField == 'title'
-    content = open("http://localhost:#{settings.port}/api/db/search-books-by-title?search_by=#{searchBy}").read
+    content = Database.searchBooksByTitle(searchBy)
   else
-    content = open("http://localhost:#{settings.port}/api/db/search-books?search_field=#{searchField}&search_by=#{searchBy}").read
+    content = Database.searchBooks(searchField, searchBy)
   end 
 
   return content
 end
 
+
 ## Checkout Related
 def mw_getCheckout(checkoutId)
-  content = open("http://localhost:#{settings.port}/api/db/get-checkout?checkout_id=#{checkoutId}").read
+  content = Database.getCheckout(checkoutId)
+  return content
+end
+
+def mw_getCurrentUserCheckouts
+  content = mw_getUserCheckouts(get_id)
   return content
 end
 
 def mw_getUserCheckouts(userId)
-  content = open("http://localhost:#{settings.port}/api/db/get-user-checkouts?user_id=#{userId}").read
+  content = Database.getUserCheckouts(userId)
   return content
 end
 
 def mw_getCheckouts
-  content = open("http://localhost:#{settings.port}/api/db/get-checkouts").read
+  content = Database.getCheckouts()
   return content
 end
 
@@ -117,19 +123,11 @@ def mw_checkoutBook(bookId, userId)
   # Add two weeks to the current date
   due_time = Time.now + (2*7*24*60*60)
   
-
   # Get the dates from the variables
   checkoutDate = current_time.strftime "%Y-%m-%d"
   dueDate = due_time.strftime "%Y-%m-%d"
   
-  uri = URI.parse("http://localhost:#{settings.port}/api/db/checkout-book")
-  uri.query = URI.encode_www_form(
-    'book_id' => bookId,
-    'user_id' => userId,
-    'checkout_date' => checkoutDate,
-    'due_date' => dueDate
-  )
-  content = open(uri.to_s).read
+  content = Database.checkoutBook(bookId, userId, checkoutDate, dueDate)
   return content
 end
 
@@ -138,14 +136,7 @@ def mw_returnBook(checkoutId, returnCondition)
 
   returnDate = current_time.strftime '%Y-%m-%d'
   
-  uri = URI.parse("http://localhost:#{settings.port}/api/db/return-book")
-  uri.query = URI.encode_www_form(
-    'checkout_id' => checkoutId,
-    'return_date' => returnDate,
-    'return_condition' => returnCondition
-  )
-
-  content = open(uri.to_s).read
+  content = Database.returnBook(checkoutId, returnDate, returnCondition)
   return content
 end
 # End Database Middleware
