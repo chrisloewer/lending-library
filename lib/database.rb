@@ -2,7 +2,6 @@ require 'sequel'
 
 DB = Sequel.connect('sqlite://library.db')
 
-
 Sequel::Model.plugin :json_serializer
 
 # If you want to delete the tables and remake them change the ? to a !
@@ -56,81 +55,57 @@ class Database
   def self.addBook(title, subtitle, author, isbn, edition, publication_year, user_id, location)
     query = 'INSERT INTO books (title, subtitle, author, isbn, edition, publication_year, user_id, location)'
     query += "VALUES ('#{title}', '#{subtitle}', '#{author}', '#{isbn}', '#{edition}', '#{publication_year}', #{user_id}, '#{location}')"
-    dataset = DB[query].all
-    dataset.to_json
-    return dataset.to_s
+    DB[query]
   end
 
   def self.removeBook(book_id)
-    dataset = DB["DELETE FROM books where book_id = #{book_id}"].all
-    dataset.to_json
-    return dataset.to_s
+    DB["DELETE FROM books where book_id = #{book_id}"].all
   end
 
   # Get Info for a Single Book
   def self.getBook(book_id)
-    dataset = DB["SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id WHERE b.book_id = #{book_id}"].all
-    dataset.to_json
-    return dataset.to_s
+    DB["SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id WHERE b.book_id = #{book_id}"].all
   end
 
   # Get all books in DB
-  def self.getBooks()
-    dataset= DB['SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id'].all
-    dataset.to_json
-    return dataset.to_s
+  def self.getBooks
+    DB['SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id'].all
   end
 
   # Get all books a certain user owns
   def self.getUserBooks(user_id)
-    dataset= DB["SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id WHERE b.user_id = #{user_id}"].all
-    dataset.to_json
-    return dataset.to_s
+    DB["SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id WHERE b.user_id = #{user_id}"].all
   end
 
   # Search All books by a field and search text
   def self.searchBooks(search_field, search_by)
-    dataset= DB["SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id where b.#{search_field} like '%#{search_by}%'"].all
-    dataset.to_json
-    return dataset.to_s
+    DB["SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id where b.#{search_field} like '%#{search_by}%'"].all
   end
 
   # Search All books by titles
   def self.searchBooksByTitle(search_by)
-    dataset = DB["SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id where b.title like '%#{search_by}%' or b.subtitle like '%#{search_by}%'"].all
-    dataset.to_json
-    return dataset.to_s
+    DB["SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id where b.title like '%#{search_by}%' or b.subtitle like '%#{search_by}%'"].all
   end
 
   ## Checkout Related
   def self.getCheckout(checkout_id)
-    dataset= DB["SELECT c.*, b.title, b.subtitle, u.first_name, u.last_name FROM ((checkouts c ((join users u on u.user_id = c.user_id) join books b on b.book_id = c.book_id) WHERE c.checkout_id = #{checkout_id}"].all
-    dataset.to_json
-    return dataset.to_s
+    DB["SELECT c.*, b.title, b.subtitle, u.first_name, u.last_name FROM ((checkouts c ((join users u on u.user_id = c.user_id) join books b on b.book_id = c.book_id) WHERE c.checkout_id = #{checkout_id}"].all
   end
 
   def self.getUserCheckouts(user_id)
-    dataset= DB["SELECT c.*, b.title, b.subtitle, u.first_name, u.last_name FROM ((checkouts c join users u on u.user_id = c.user_id) join books b on b.book_id = c.book_id) WHERE c.user_id = #{user_id}"].all
-    dataset.to_json
-    return dataset.to_s
+    DB["SELECT c.*, b.title, b.subtitle, u.first_name, u.last_name FROM ((checkouts c join users u on u.user_id = c.user_id) join books b on b.book_id = c.book_id) WHERE c.user_id = #{user_id}"].all
   end
 
-  def self.getCheckouts()
-    dataset= DB['SELECT c.*, b.title, b.subtitle, u.first_name, u.last_name FROM ((checkouts c join users u on u.user_id = c.user_id) join books b on b.book_id = c.book_id)'].all
-    dataset.to_json
-    return dataset.to_s
+  def self.getCheckouts
+    DB['SELECT c.*, b.title, b.subtitle, u.first_name, u.last_name FROM ((checkouts c join users u on u.user_id = c.user_id) join books b on b.book_id = c.book_id)'].all
   end
 
   def self.checkoutBook(book_id, user_id, checkout_date, due_date)
-    dataset = DB["INSERT INTO checkouts (book_id, user_id, checkout_date, due_date) VALUES (#{book_id}, #{user_id}, '#{checkout_date}', '#{due_date}')"].all
-    dataset.to_json
-    return dataset.to_s
+    DB["INSERT INTO checkouts (book_id, user_id, checkout_date, due_date) VALUES (#{book_id}, #{user_id}, '#{checkout_date}', '#{due_date}')"].all
   end
 
   def self.returnBook(checkout_id, return_date, return_condition)
-    dataset = DB["UPDATE checkouts SET return_date = '#{return_date}', return_condition = #{return_condition} WHERE checkout_id = #{checkout_id}"].all
-    dataset.to_json
-    return dataset.to_s
+    DB["UPDATE checkouts SET return_date = '#{return_date}', return_condition = #{return_condition} WHERE checkout_id = #{checkout_id}"].all
   end
-  # End Database API
+
 end

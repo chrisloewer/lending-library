@@ -2,7 +2,7 @@
 
 
 <script type="text/javascript" charset="utf-8">
-  window.onload = function() {
-    ajaxInsertTemplate('templateContent', 'library', '/api/mw/get-current-user-books');
-  }
+  window.addEventListener('load', function() {
+    insertTemplateByPath('templateContent', 'library', '/api/mw/get-current-user-books');
+  });
 </script>

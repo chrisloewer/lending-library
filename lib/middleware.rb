@@ -4,10 +4,13 @@
 require 'open-uri'
 require 'uri'
 require 'date'
+require 'json'
 
 require_relative('database')
 require_relative('../app')
 require_relative('../lib/utilities')
+
+Sequel::Model.plugin :json_serializer
 
 # PUBLIC ROUTES
 
@@ -35,7 +38,7 @@ get '/api/mw/search-books' do
 end
 
 get '/api/mw/get-current-user-checkouts' do
-  mw_getCurrentUserCheckouts(get_id)
+  mw_getCurrentUserCheckouts
 end
 
 
@@ -60,17 +63,17 @@ end
 
 def mw_removeBook(bookId)
   content = Database.removeBook(bookId)
-  return content
+  return content.to_json.to_s
 end
 
 def mw_getBook(bookId)
   content = Database.getBook(bookId)  
-  return content
+  return content.to_json.to_s
 end
 
 def mw_getBooks
   content = Database.getBooks()
-  return content
+  return content.to_json.to_s
 end
 
 def mw_getCurrentUserBooks
@@ -80,7 +83,7 @@ end
 
 def mw_getUserBooks(userId)
   content = Database.getUserBooks(userId)
-  return content
+  return content.to_json.to_s
 end
 
 def mw_searchBooks(searchField, searchBy)
@@ -93,29 +96,29 @@ def mw_searchBooks(searchField, searchBy)
     content = Database.searchBooks(searchField, searchBy)
   end 
 
-  return content
+  return content.to_json.to_s
 end
 
 
 ## Checkout Related
 def mw_getCheckout(checkoutId)
   content = Database.getCheckout(checkoutId)
-  return content
+  return content.to_json.to_s
 end
 
 def mw_getCurrentUserCheckouts
   content = mw_getUserCheckouts(get_id)
-  return content
+  return content.to_json.to_s
 end
 
 def mw_getUserCheckouts(userId)
   content = Database.getUserCheckouts(userId)
-  return content
+  return content.to_json.to_s
 end
 
 def mw_getCheckouts
   content = Database.getCheckouts()
-  return content
+  return content.to_json.to_s
 end
 
 def mw_checkoutBook(bookId, userId)
@@ -128,7 +131,7 @@ def mw_checkoutBook(bookId, userId)
   dueDate = due_time.strftime "%Y-%m-%d"
   
   content = Database.checkoutBook(bookId, userId, checkoutDate, dueDate)
-  return content
+  return content.to_json.to_s
 end
 
 def mw_returnBook(checkoutId, returnCondition)
@@ -137,6 +140,6 @@ def mw_returnBook(checkoutId, returnCondition)
   returnDate = current_time.strftime '%Y-%m-%d'
   
   content = Database.returnBook(checkoutId, returnDate, returnCondition)
-  return content
+  return content.to_json.to_s
 end
 # End Database Middleware

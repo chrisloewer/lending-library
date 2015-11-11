@@ -73,7 +73,7 @@ templates['library'] = template({"1":function(container,depth0,helpers,partials,
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"main-container\">\n  <h1>Your Library</h1>\n\n  <div class=\"button\">Add Book</div>\n\n\n"
+  return "<div class=\"main-container\">\n  <h1>Your Library</h1>\n\n  <a href=\"/add-book\" class=\"button button-light\">Add Book</a>\n\n\n"
     + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.length : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n"
     + ((stack1 = helpers.each.call(depth0,depth0,{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.program(5, data, 0),"data":data})) != null ? stack1 : "")

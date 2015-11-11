@@ -32,7 +32,7 @@ get '/signup' do
   erb :signup
 end
 
-get '/add_book' do
+get '/add-book' do
   erb :add_book
 end
 
