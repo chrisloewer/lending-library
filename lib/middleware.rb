@@ -4,108 +4,148 @@
 require 'open-uri'
 require 'uri'
 require 'date'
+require 'json'
 
-# Start Database Middleware
-def dbAddBook(title, subtitle, author, isbn, edition, publication_year, user_id, location)
+require_relative('database')
+require_relative('../app')
+require_relative('../lib/utilities')
 
-  uri = URI.parse("http://localhost:#{settings.port}/api/db/add-book")
-  uri.query = URI.encode_www_form(
-    'title' => title,
-    'subtitle' => subtitle,
-    'author' => author,
-    'isbn' => isbn,
-    'edition' => edition,
-    'publication_year' => publication_year,
-    'user_id' => user_id,
-    'location' => location
+Sequel::Model.plugin :json_serializer
+
+# PUBLIC ROUTES
+
+post '/api/mw/add-book' do
+  mw_addBook(params[:title], params[:subtitle], params[:author], params[:isbn], params[:publication_year])
+end
+
+get '/api/mw/get-book' do
+  book_id = params[:book_id]
+  mw_getUserBooks(book_id)
+end
+
+get '/api/mw/get-books' do
+  mw_getBooks
+end
+
+get '/api/mw/get-current-user-books' do
+  mw_getCurrentUserBooks
+end
+
+get '/api/mw/search-books' do
+  search_field = params[:search_field]
+  search_by = params[:search_by]
+  mw_searchBooks(search_field,search_by)
+end
+
+get '/api/mw/get-current-user-checkouts' do
+  mw_getCurrentUserCheckouts
+end
+
+get '/api/mw/checkout-book' do
+  mw_checkoutBook(params['book-id'])
+end
+
+
+# DATABASE MIDDLEWARE
+
+def mw_addBook(title, subtitle, author, isbn, publication_year, edition='', location='')
+
+  user_id = get_id
+
+  content = Database.addBook(
+    sanitize_text(title),
+    sanitize_text(subtitle),
+    sanitize_text(author),
+    sanitize_text(isbn),
+    sanitize_text(edition),
+    sanitize_text(publication_year),
+    user_id,
+    sanitize_text(location)
   )
-  content = open(uri.to_s).read
   return content
 end
 
-def dbRemoveBook(bookId)
-  content = open("http://localhost:#{settings.port}/api/db/remove-book?book_id=#{bookId}").read
-  return content
+def mw_removeBook(bookId)
+  content = Database.removeBook(bookId)
+  content.to_json.to_s
 end
 
-def dbGetBook(bookId)
-  content = open("http://localhost:#{settings.port}/api/db/get-book?book_id=#{bookId}").read
-  return content
+def mw_getBook(bookId)
+  content = Database.getBook(bookId)  
+  content.to_json.to_s
 end
 
-def dbGetBooks()
-  content = open("http://localhost:#{settings.port}/api/db/get-books").read
-  return content
+def mw_getBooks
+  content = Database.getBooks
+  content.to_json.to_s
 end
 
-def dbGetUserBooks(userId)
-  content = open("http://localhost:#{settings.port}/api/db/get-user-books?user_id=#{userId}").read
-  return content
+def mw_getCurrentUserBooks
+  content = mw_getUserBooks(get_id)
+  content
 end
 
-def dbSearchBooks(searchField, searchBy)
+def mw_getUserBooks(userId)
+  content = Database.getUserBooks(userId)
+  content.to_json.to_s
+end
+
+def mw_searchBooks(searchField, searchBy)
 
   return nil unless ['title', 'author', 'isbn', 'edition', 'publication_year', 'location'].include? searchField
 
   if searchField == 'title'
-    content = open("http://localhost:#{settings.port}/api/db/search-books-by-title?search_by=#{searchBy}").read
+    content = Database.searchBooksByTitle(searchBy)
   else
-    content = open("http://localhost:#{settings.port}/api/db/search-books?search_field=#{searchField}&search_by=#{searchBy}").read
+    content = Database.searchBooks(searchField, searchBy)
   end 
 
-  return content
+  content.to_json.to_s
 end
+
 
 ## Checkout Related
-def dbGetCheckout(checkoutId)
-  content = open("http://localhost:#{settings.port}/api/db/get-checkout?checkout_id=#{checkoutId}").read
-  return content
+def mw_getCheckout(checkoutId)
+  content = Database.getCheckout(checkoutId)
+  content.to_json.to_s
 end
 
-def dbGetUserCheckouts(userId)
-  content = open("http://localhost:#{settings.port}/api/db/get-user-checkouts?user_id=#{userId}").read
-  return content
+def mw_getCurrentUserCheckouts
+  mw_getUserCheckouts(get_id)
 end
 
-def dbGetCheckouts()
-  content = open("http://localhost:#{settings.port}/api/db/get-checkouts").read
-  return content
+def mw_getUserCheckouts(userId)
+  content = Database.getUserCheckouts(userId)
+  content.to_json.to_s
 end
 
-def dbCheckoutBook(bookId, userId)
+def mw_getCheckouts
+  content = Database.getCheckouts()
+  content.to_json.to_s
+end
+
+def mw_checkoutBook(bookId)
+
+  u_id = get_id
+
   current_time = DateTime.now
   # Add two weeks to the current date
   due_time = Time.now + (2*7*24*60*60)
   
-
-  # Get the dates from the vareables
+  # Get the dates from the variables
   checkoutDate = current_time.strftime "%Y-%m-%d"
   dueDate = due_time.strftime "%Y-%m-%d"
-
-  uri = URI.parse("http://localhost:#{settings.port}/api/db/checkout-book")
-  uri.query = URI.encode_www_form(
-    'book_id' => bookId,
-    'user_id' => userId,
-    'checkout_date' => checkoutDate,
-    'due_date' => dueDate
-  )
-  content = open(uri.to_s).read
-  return content
+  
+  content = Database.checkoutBook(bookId, u_id, checkoutDate, dueDate)
+  content.to_json.to_s
 end
 
-def dbReturnBook(checkoutId, returnCondition)  
+def mw_returnBook(checkoutId, returnCondition)
   current_time = DateTime.now
 
-  returnDate = current_time.strftime "%Y-%m-%d"
-
-  uri = URI.parse("http://localhost:#{settings.port}/api/db/return-book")
-  uri.query = URI.encode_www_form(
-    'checkout_id' => checkoutId,
-    'return_date' => returnDate,
-    'return_condition' => returnCondition
-  )
-
-  content = open(uri.to_s).read
-  return content
+  returnDate = current_time.strftime '%Y-%m-%d'
+  
+  content = Database.returnBook(checkoutId, returnDate, returnCondition)
+  content.to_json.to_s
 end
 # End Database Middleware

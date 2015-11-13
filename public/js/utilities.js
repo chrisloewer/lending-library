@@ -1,4 +1,4 @@
-function ajaxInsertTemplate(elementId, templateName, path) {
+function insertTemplateByPath(elementId, templateName, path) {
   var request = new XMLHttpRequest();
   var response;
   request.open('GET', path, true);
