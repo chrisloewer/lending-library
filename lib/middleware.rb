@@ -41,6 +41,10 @@ get '/api/mw/get-current-user-checkouts' do
   mw_getCurrentUserCheckouts
 end
 
+get '/api/mw/checkout-book' do
+  mw_checkoutBook(params['book-id'])
+end
+
 
 # DATABASE MIDDLEWARE
 
@@ -63,27 +67,27 @@ end
 
 def mw_removeBook(bookId)
   content = Database.removeBook(bookId)
-  return content.to_json.to_s
+  content.to_json.to_s
 end
 
 def mw_getBook(bookId)
   content = Database.getBook(bookId)  
-  return content.to_json.to_s
+  content.to_json.to_s
 end
 
 def mw_getBooks
-  content = Database.getBooks()
-  return content.to_json.to_s
+  content = Database.getBooks
+  content.to_json.to_s
 end
 
 def mw_getCurrentUserBooks
   content = mw_getUserBooks(get_id)
-  return content
+  content
 end
 
 def mw_getUserBooks(userId)
   content = Database.getUserBooks(userId)
-  return content.to_json.to_s
+  content.to_json.to_s
 end
 
 def mw_searchBooks(searchField, searchBy)
@@ -96,32 +100,34 @@ def mw_searchBooks(searchField, searchBy)
     content = Database.searchBooks(searchField, searchBy)
   end 
 
-  return content.to_json.to_s
+  content.to_json.to_s
 end
 
 
 ## Checkout Related
 def mw_getCheckout(checkoutId)
   content = Database.getCheckout(checkoutId)
-  return content.to_json.to_s
+  content.to_json.to_s
 end
 
 def mw_getCurrentUserCheckouts
-  content = mw_getUserCheckouts(get_id)
-  return content.to_json.to_s
+  mw_getUserCheckouts(get_id)
 end
 
 def mw_getUserCheckouts(userId)
   content = Database.getUserCheckouts(userId)
-  return content.to_json.to_s
+  content.to_json.to_s
 end
 
 def mw_getCheckouts
   content = Database.getCheckouts()
-  return content.to_json.to_s
+  content.to_json.to_s
 end
 
-def mw_checkoutBook(bookId, userId)
+def mw_checkoutBook(bookId)
+
+  u_id = get_id
+
   current_time = DateTime.now
   # Add two weeks to the current date
   due_time = Time.now + (2*7*24*60*60)
@@ -130,8 +136,8 @@ def mw_checkoutBook(bookId, userId)
   checkoutDate = current_time.strftime "%Y-%m-%d"
   dueDate = due_time.strftime "%Y-%m-%d"
   
-  content = Database.checkoutBook(bookId, userId, checkoutDate, dueDate)
-  return content.to_json.to_s
+  content = Database.checkoutBook(bookId, u_id, checkoutDate, dueDate)
+  content.to_json.to_s
 end
 
 def mw_returnBook(checkoutId, returnCondition)
@@ -140,6 +146,6 @@ def mw_returnBook(checkoutId, returnCondition)
   returnDate = current_time.strftime '%Y-%m-%d'
   
   content = Database.returnBook(checkoutId, returnDate, returnCondition)
-  return content.to_json.to_s
+  content.to_json.to_s
 end
 # End Database Middleware

@@ -162,6 +162,8 @@ input[type='submit'] {
       font-weight: 400; }
     .main-container table td {
       padding: 0 20px; }
+    .main-container table tr {
+      border-bottom: 1px solid #829bb2; }
 
 form {
   padding: 20px; }

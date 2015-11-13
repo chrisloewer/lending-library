@@ -224,6 +224,9 @@ input[type='submit'] {
     td {
       padding: 0 20px;
     }
+    tr {
+      border-bottom: 1px solid $highlight-color-4;
+    }
   }
 }
 

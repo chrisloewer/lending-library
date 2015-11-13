@@ -64,40 +64,40 @@ class Database
 
   # Get Info for a Single Book
   def self.getBook(book_id)
-    DB["SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id WHERE b.book_id = #{book_id}"].all
+    DB["SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id WHERE b.book_id = #{book_id}"].all
   end
 
   # Get all books in DB
   def self.getBooks
-    DB['SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id'].all
+    DB['SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id'].all
   end
 
   # Get all books a certain user owns
   def self.getUserBooks(user_id)
-    DB["SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id WHERE b.user_id = #{user_id}"].all
+    DB["SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id WHERE b.user_id = #{user_id}"].all
   end
 
   # Search All books by a field and search text
   def self.searchBooks(search_field, search_by)
-    DB["SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id where b.#{search_field} like '%#{search_by}%'"].all
+    DB["SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id where b.#{search_field} like '%#{search_by}%'"].all
   end
 
   # Search All books by titles
   def self.searchBooksByTitle(search_by)
-    DB["SELECT b.*, u.first_name, u.last_name FROM books b join users u on u.user_id = b.user_id where b.title like '%#{search_by}%' or b.subtitle like '%#{search_by}%'"].all
+    DB["SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id where b.title like '%#{search_by}%' or b.subtitle like '%#{search_by}%'"].all
   end
 
   ## Checkout Related
   def self.getCheckout(checkout_id)
-    DB["SELECT c.*, b.title, b.subtitle, u.first_name, u.last_name FROM ((checkouts c ((join users u on u.user_id = c.user_id) join books b on b.book_id = c.book_id) WHERE c.checkout_id = #{checkout_id}"].all
+    DB["SELECT c.*, b.title, b.subtitle, u.username FROM ((checkouts c ((join users u on u.user_id = b.user_id) join books b on b.book_id = c.book_id) WHERE c.checkout_id = #{checkout_id}"].all
   end
 
   def self.getUserCheckouts(user_id)
-    DB["SELECT c.*, b.title, b.subtitle, u.first_name, u.last_name FROM ((checkouts c join users u on u.user_id = c.user_id) join books b on b.book_id = c.book_id) WHERE c.user_id = #{user_id}"].all
+    DB["SELECT c.*, b.title, b.subtitle, u.username FROM ((checkouts c join users u on u.user_id = b.user_id) join books b on b.book_id = c.book_id) WHERE c.user_id = #{user_id}"].all
   end
 
   def self.getCheckouts
-    DB['SELECT c.*, b.title, b.subtitle, u.first_name, u.last_name FROM ((checkouts c join users u on u.user_id = c.user_id) join books b on b.book_id = c.book_id)'].all
+    DB['SELECT c.*, b.title, b.subtitle, u.username FROM ((checkouts c join users u on u.user_id = b.user_id) join books b on b.book_id = c.book_id)'].all
   end
 
   def self.checkoutBook(book_id, user_id, checkout_date, due_date)

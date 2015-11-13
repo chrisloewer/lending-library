@@ -28,6 +28,10 @@ get '/bookbag' do
   erb :bookbag
 end
 
+get '/list' do
+  erb :book_list
+end
+
 get '/signup' do
   erb :signup
 end
@@ -75,5 +79,5 @@ get '/api/user/signout' do
 end
 
 def get_id
-  return User.authenticate(cookies[:u_token])
+  User.authenticate(cookies[:u_token])
 end
