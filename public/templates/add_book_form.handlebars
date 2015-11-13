@@ -1,0 +1,26 @@
+<form class="add-book" method="post" action="/api/mw/add-book">
+  <fieldset>
+    <label>Title: </label>
+    <input type="text" name="title" placeholder="Title" value="{{items.[0].volumeInfo.title}}">
+  </fieldset>
+  <fieldset>
+    <label>Sub-Title: </label>
+    <input type="text" name="subtitle" placeholder="Sub-Title" value="{{items.[0].volumeInfo.subtitle}}">
+  </fieldset>
+  <fieldset>
+    <label>Author: </label>
+    <input type="text" name="author" placeholder="Author" value="{{items.[0].volumeInfo.authors.[0]}}">
+  </fieldset>
+  <fieldset>
+    <label>ISBN: </label>
+    <input type="text" name="isbn" placeholder="ISBN" value="{{#if items.[0].volumeInfo.industryIdentifiers.[0].identifier}}{{items.[0].volumeInfo.industryIdentifiers.[0].identifier}}{{else}}{{items.[1].volumeInfo.industryIdentifiers.[0].identifier}}{{/if}}">
+  </fieldset>
+  <fieldset>
+    <label>Publication Year: </label>
+    <input type="text" name="publication_year" placeholder="Publication Year" value="{{items.[0].volumeInfo.publishedDate}}">
+  </fieldset>
+
+  <fieldset>
+    <input  type="submit" class="button-light button-small" id="submitButton" value="Add Book">
+  </fieldset>
+</form>

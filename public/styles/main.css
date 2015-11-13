@@ -162,6 +162,8 @@ input[type='submit'] {
       font-weight: 400; }
     .main-container table td {
       padding: 0 20px; }
+    .main-container table tr {
+      border-bottom: 1px solid #829bb2; }
 
 form {
   padding: 20px; }
@@ -176,6 +178,12 @@ label {
 
 input {
   width: 150px; }
+
+.add-book label {
+  width: 150px;
+  text-align: right; }
+.add-book input {
+  width: 300px; }
 
 .footer {
   min-height: 150px;
@@ -204,6 +212,7 @@ input {
   padding: 10px;
   font-size: 24px;
   font-weight: 200;
+  text-decoration: none;
   cursor: pointer; }
 
 .button:hover {
@@ -213,7 +222,7 @@ input {
   background-color: #0b1d29; }
 
 .button-light {
-  border: 1px solid white;
+  border: 1px solid black;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
@@ -230,6 +239,10 @@ input {
 
 .button-light:active {
   background-color: #829bb2; }
+
+.button-small {
+  font-size: 20px;
+  padding: 5px 15px; }
 
 .w400 {
   font-size: inherit;

@@ -1,21 +1,30 @@
 <div class="main-container">
   <h1>Your Library</h1>
 
-  <div class="button">Add Book</div>
+  <a href="/add-book" class="button button-light">Add Book</a>
 
-  <table class="library-list">
-    <tr>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Owner</th>
-    </tr>
 
-    {{#each books}}
+  {{#if this.length}}
+    <table class="library-list">
+      <tr>
+        <th>Title</th>
+        <th>Subtitle</th>
+        <th>Author</th>
+        <th>Edition</th>
+        <th>Publication Year</th>
+      </tr>
+    {{/if}}
+
+    {{#each this}}
       <tr class="book-item">
         <td>{{this.title}}</td>
+        <td>{{this.subtitle}}</td>
         <td>{{this.author}}</td>
-        <td>{{this.owner}}</td>
+        <td>{{this.edition}}</td>
+        <td>{{this.publication_year}}</td>
       </tr>
+    {{else}}
+      <h3>You have no items in your Library</h3>
     {{/each}}
   </table>
 </div>
