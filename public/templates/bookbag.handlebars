@@ -5,7 +5,6 @@
   <table class="library-list">
     <tr>
       <th>Title</th>
-      <th>Subtitle</th>
       <th>Checkout Date</th>
       <th>Due Date</th>
       <th>Owner</th>      
@@ -14,8 +13,7 @@
 
     {{#each this}}
       <tr class="book-item">
-        <td>{{this.title}}</td>
-        <td>{{this.subtitle}}</td>
+        <td>{{this.title}} {{this.subtitle}}</td>
         <td>{{this.checkout_date}}</td>
         <td>{{this.due_date}}</td>
         <td>{{this.username}}</td>
