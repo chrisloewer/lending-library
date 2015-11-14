@@ -24,13 +24,13 @@ templates['add_book_form'] = template({"1":function(container,depth0,helpers,par
     + "\">\n  </fieldset>\n\n  <fieldset>\n    <input  type=\"submit\" class=\"button-light button-small\" id=\"submitButton\" value=\"Add Book\">\n  </fieldset>\n</form>\n";
 },"useData":true});
 templates['bookbag'] = template({"1":function(container,depth0,helpers,partials,data) {
-    return "  <table class=\"library-list\">\n    <tr>\n      <th>Title</th>\n      <th>Subtitle</th>\n      <th>Checkout Date</th>\n      <th>Due Date</th>\n      <th>Owner</th>      \n    </tr>\n";
+    return "  <table class=\"library-list\">\n    <tr>\n      <th>Title</th>\n      <th>Checkout Date</th>\n      <th>Due Date</th>\n      <th>Owner</th>      \n    </tr>\n";
 },"3":function(container,depth0,helpers,partials,data) {
     var alias1=container.lambda, alias2=container.escapeExpression;
 
   return "      <tr class=\"book-item\">\n        <td>"
     + alias2(alias1((depth0 != null ? depth0.title : depth0), depth0))
-    + "</td>\n        <td>"
+    + " "
     + alias2(alias1((depth0 != null ? depth0.subtitle : depth0), depth0))
     + "</td>\n        <td>"
     + alias2(alias1((depth0 != null ? depth0.checkout_date : depth0), depth0))

@@ -55,11 +55,11 @@ class Database
   def self.addBook(title, subtitle, author, isbn, edition, publication_year, user_id, location)
     query = 'INSERT INTO books (title, subtitle, author, isbn, edition, publication_year, user_id, location)'
     query += "VALUES ('#{title}', '#{subtitle}', '#{author}', '#{isbn}', '#{edition}', '#{publication_year}', #{user_id}, '#{location}')"
-    DB[query]
+    DB.run(query)
   end
 
   def self.removeBook(book_id)
-    DB["DELETE FROM books where book_id = #{book_id}"].all
+    DB.run("DELETE FROM books where book_id = #{book_id}")
   end
 
   # Get Info for a Single Book
@@ -101,7 +101,7 @@ class Database
   end
 
   def self.checkoutBook(book_id, user_id, checkout_date, due_date)
-    DB["INSERT INTO checkouts (book_id, user_id, checkout_date, due_date) VALUES (#{book_id}, #{user_id}, '#{checkout_date}', '#{due_date}')"].all
+    DB.run("INSERT INTO checkouts (book_id, user_id, checkout_date, due_date) VALUES (#{book_id}, #{user_id}, '#{checkout_date}', '#{due_date}')")
   end
 
   def self.returnBook(checkout_id, return_date, return_condition)

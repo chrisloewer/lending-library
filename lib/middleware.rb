@@ -16,6 +16,7 @@ Sequel::Model.plugin :json_serializer
 
 post '/api/mw/add-book' do
   mw_addBook(params[:title], params[:subtitle], params[:author], params[:isbn], params[:publication_year])
+  redirect '/library'
 end
 
 get '/api/mw/get-book' do
@@ -43,6 +44,8 @@ end
 
 get '/api/mw/checkout-book' do
   mw_checkoutBook(params['book-id'])
+
+  redirect '/bookbag'
 end
 
 
