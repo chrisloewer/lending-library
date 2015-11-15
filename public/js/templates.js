@@ -24,9 +24,13 @@ templates['add_book_form'] = template({"1":function(container,depth0,helpers,par
     + "\">\n  </fieldset>\n\n  <fieldset>\n    <input  type=\"submit\" class=\"button-light button-small\" id=\"submitButton\" value=\"Add Book\">\n  </fieldset>\n</form>\n";
 },"useData":true});
 templates['bookbag'] = template({"1":function(container,depth0,helpers,partials,data) {
-    var stack1;
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
 
-  return "    <table class=\"library-list\">\n      <tr>\n        <th>Title</th>\n        <th>Subtitle</th>\n        <th>Checkout Date</th>\n        <th>Due Date</th>\n        <th>Owner</th>      \n      </tr>\n\n"
+  return "    <table class=\"library-list\">\n      <tr>\n        <td>"
+    + alias2(alias1((depth0 != null ? depth0.title : depth0), depth0))
+    + " "
+    + alias2(alias1((depth0 != null ? depth0.subtitle : depth0), depth0))
+    + "</td>\n        <th>Checkout Date</th>\n        <th>Due Date</th>\n        <th>Owner</th>\n      </tr>\n\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},depth0,{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </table>\n";
 },"2":function(container,depth0,helpers,partials,data) {

@@ -53,15 +53,14 @@ end
 class Database
   # Start Database API
   def self.addBook(title, subtitle, author, isbn, edition, publication_year, user_id, location)
-    query = 'INSERT INTO books (title, subtitle, author, isbn, edition, publication_year, user_id, location, book_status)' #
-    query += " VALUES ('#{title}', '#{subtitle}', '#{author}', '#{isbn}', '#{edition}', '#{publication_year}', #{user_id}, '#{location}', 0)"  #
-    puts query
-    returnValue(DB[query].all)
+    query = 'INSERT INTO books (title, subtitle, author, isbn, edition, publication_year, user_id, location, book_status)'
+    query += " VALUES ('#{title}', '#{subtitle}', '#{author}', '#{isbn}', '#{edition}', '#{publication_year}', #{user_id}, '#{location}', 0)"
+    DB.run(query)
   end
 
   def self.removeBook(book_id)
     query = "DELETE FROM books where book_id = #{book_id}"
-    returnValue(DB[query].all)
+    DB.run(query)
   end
 
   # Get Info for a Single Book
@@ -112,16 +111,16 @@ class Database
 
   def self.checkoutBook(book_id, user_id, checkout_date, due_date)
     query = "UPDATE books SET book_status = 1 WHERE book_id = #{book_id}"
-    returnValue(DB[query].all)
+    DB.run(query)
     query = "INSERT INTO checkouts (book_id, user_id, checkout_date, due_date) VALUES (#{book_id}, #{user_id}, '#{checkout_date}', '#{due_date}')"
-    returnValue(DB[query].all)
+    DB.run(query)
   end
 
   def self.returnBook(checkout_id, return_date, return_condition)
     query = "UPDATE books SET book_status = 0 WHERE book_id = (select book_id from checkouts where checkout_id = #{checkout_id})"
-    DB[query].all
+    DB.run(query)
     query = "UPDATE checkouts SET return_date = '#{return_date}', return_condition = #{return_condition} WHERE checkout_id = #{checkout_id}"
-    returnValue(DB[query].all)
+    DB.run(query)
   end
 
   def self.returnValue(dataset)
