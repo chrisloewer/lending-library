@@ -53,59 +53,79 @@ end
 class Database
   # Start Database API
   def self.addBook(title, subtitle, author, isbn, edition, publication_year, user_id, location)
-    query = 'INSERT INTO books (title, subtitle, author, isbn, edition, publication_year, user_id, location)'
-    query += "VALUES ('#{title}', '#{subtitle}', '#{author}', '#{isbn}', '#{edition}', '#{publication_year}', #{user_id}, '#{location}')"
-    DB[query]
+    query = 'INSERT INTO books (title, subtitle, author, isbn, publication_year, user_id)' #, edition, location
+    query += " VALUES ('#{title}', '#{subtitle}', '#{author}', '#{isbn}', '#{publication_year}', #{user_id})"  #, '#{edition}', '#{location}'
+    puts query
+    returnValue(DB[query].all)
   end
 
   def self.removeBook(book_id)
-    DB["DELETE FROM books where book_id = #{book_id}"].all
+    query = "DELETE FROM books where book_id = #{book_id}"
+    returnValue(DB[query].all)
   end
 
   # Get Info for a Single Book
   def self.getBook(book_id)
-    DB["SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id WHERE b.book_id = #{book_id}"].all
+    query = "SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id WHERE b.book_id = #{book_id}"
+    returnValue(DB[query].all)
   end
 
   # Get all books in DB
   def self.getBooks
-    DB['SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id'].all
+    query = 'SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id'
+    returnValue(DB[query].all)
   end
 
   # Get all books a certain user owns
   def self.getUserBooks(user_id)
-    DB["SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id WHERE b.user_id = #{user_id}"].all
+    query = "SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id WHERE b.user_id = #{user_id}"
+    returnValue(DB[query].all)
   end
 
   # Search All books by a field and search text
   def self.searchBooks(search_field, search_by)
-    DB["SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id where b.#{search_field} like '%#{search_by}%'"].all
+    query = "SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id where b.#{search_field} like '%#{search_by}%'"
+    returnValue(DB[query].all)
   end
 
   # Search All books by titles
   def self.searchBooksByTitle(search_by)
-    DB["SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id where b.title like '%#{search_by}%' or b.subtitle like '%#{search_by}%'"].all
+    query = "SELECT b.*, u.username FROM books b join users u on u.user_id = b.user_id where b.title like '%#{search_by}%' or b.subtitle like '%#{search_by}%'"
+    returnValue(DB[query].all)
   end
 
   ## Checkout Related
   def self.getCheckout(checkout_id)
-    DB["SELECT c.*, b.title, b.subtitle, u.username FROM ((checkouts c ((join users u on u.user_id = b.user_id) join books b on b.book_id = c.book_id) WHERE c.checkout_id = #{checkout_id}"].all
+    query = "SELECT c.*, b.title, b.subtitle, u.username FROM ((checkouts c ((join users u on u.user_id = b.user_id) join books b on b.book_id = c.book_id) WHERE c.checkout_id = #{checkout_id}"
+    returnValue(DB[query].all)
   end
 
   def self.getUserCheckouts(user_id)
-    DB["SELECT c.*, b.title, b.subtitle, u.username FROM ((checkouts c join users u on u.user_id = b.user_id) join books b on b.book_id = c.book_id) WHERE c.user_id = #{user_id}"].all
+    query = "SELECT c.*, b.title, b.subtitle, u.username FROM ((checkouts c join users u on u.user_id = b.user_id) join books b on b.book_id = c.book_id) WHERE c.user_id = #{user_id}"
+    returnValue(DB[query].all)
   end
 
   def self.getCheckouts
-    DB['SELECT c.*, b.title, b.subtitle, u.username FROM ((checkouts c join users u on u.user_id = b.user_id) join books b on b.book_id = c.book_id)'].all
+    query = 'SELECT c.*, b.title, b.subtitle, u.username FROM ((checkouts c join users u on u.user_id = b.user_id) join books b on b.book_id = c.book_id)'
+    returnValue(DB[query].all)
   end
 
   def self.checkoutBook(book_id, user_id, checkout_date, due_date)
-    DB["INSERT INTO checkouts (book_id, user_id, checkout_date, due_date) VALUES (#{book_id}, #{user_id}, '#{checkout_date}', '#{due_date}')"].all
+    query = "INSERT INTO checkouts (book_id, user_id, checkout_date, due_date) VALUES (#{book_id}, #{user_id}, '#{checkout_date}', '#{due_date}')"
+    returnValue(DB[query].all)
   end
 
   def self.returnBook(checkout_id, return_date, return_condition)
-    DB["UPDATE checkouts SET return_date = '#{return_date}', return_condition = #{return_condition} WHERE checkout_id = #{checkout_id}"].all
+    query = "UPDATE checkouts SET return_date = '#{return_date}', return_condition = #{return_condition} WHERE checkout_id = #{checkout_id}"
+    returnValue(DB[query].all)
+  end
+
+  def self.returnValue(dataset)
+    if dataset.count > 0
+      return dataset
+    else
+      return nil
+    end
   end
 
 end
