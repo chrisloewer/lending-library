@@ -12,13 +12,15 @@
       </tr>
     
       {{#each this}}
-        <tr class="book-item">
-          <td>{{this.title}} {{this.subtitle}}</td>
-          <td>{{this.author}}</td>
-          <td>{{this.publication_year}}</td>
-          <td>{{this.username}}</td>
-          <td><a href="/api/mw/checkout-book?book-id={{this.book_id}}">Checkout</a></td>
-        </tr>  
+        {{#unless book_status}}
+          <tr class="book-item">
+            <td>{{this.title}} {{this.subtitle}}</td>
+            <td>{{this.author}}</td>
+            <td>{{this.publication_year}}</td>
+            <td>{{this.username}}</td>
+            <td><a href="/api/mw/checkout-book?book-id={{this.book_id}}">Checkout</a></td>
+          </tr>  
+        {{/unless}}
       {{/each}}
     </table>
   {{else}}

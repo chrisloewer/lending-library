@@ -59,28 +59,32 @@ templates['book_list'] = template({"1":function(container,depth0,helpers,partial
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},depth0,{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </table>\n";
 },"2":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = helpers.unless.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.book_status : depth0),{"name":"unless","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"3":function(container,depth0,helpers,partials,data) {
     var alias1=container.lambda, alias2=container.escapeExpression;
 
-  return "        <tr class=\"book-item\">\n          <td>"
+  return "          <tr class=\"book-item\">\n            <td>"
     + alias2(alias1((depth0 != null ? depth0.title : depth0), depth0))
     + " "
     + alias2(alias1((depth0 != null ? depth0.subtitle : depth0), depth0))
-    + "</td>\n          <td>"
+    + "</td>\n            <td>"
     + alias2(alias1((depth0 != null ? depth0.author : depth0), depth0))
-    + "</td>\n          <td>"
+    + "</td>\n            <td>"
     + alias2(alias1((depth0 != null ? depth0.publication_year : depth0), depth0))
-    + "</td>\n          <td>"
+    + "</td>\n            <td>"
     + alias2(alias1((depth0 != null ? depth0.username : depth0), depth0))
-    + "</td>\n          <td><a href=\"/api/mw/checkout-book?book-id="
+    + "</td>\n            <td><a href=\"/api/mw/checkout-book?book-id="
     + alias2(alias1((depth0 != null ? depth0.book_id : depth0), depth0))
-    + "\">Checkout</a></td>\n        </tr>  \n";
-},"4":function(container,depth0,helpers,partials,data) {
+    + "\">Checkout</a></td>\n          </tr>  \n";
+},"5":function(container,depth0,helpers,partials,data) {
     return "    <h3>There are no books available</h3>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return "<div class=\"main-container\">\n  <h1>Books Available</h1>\n\n"
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.length : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(4, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.length : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(5, data, 0),"data":data})) != null ? stack1 : "")
     + "\n</div>\n";
 },"useData":true});
 templates['library'] = template({"1":function(container,depth0,helpers,partials,data) {
