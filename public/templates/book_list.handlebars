@@ -2,26 +2,29 @@
   <h1>Books Available</h1>
 
   {{#if this.length}}
-  <table class="library-list">
-    <tr>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Publication Year</th>
-      <th>Owner</th>
-      <th></th>
-    </tr>
+    <table class="library-list">
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Publication Year</th>
+        <th>Owner</th>
+        <th></th>
+      </tr>
+    
+      {{#each this}}
+        {{#unless book_status}}
+          <tr class="book-item">
+            <td>{{this.title}} {{this.subtitle}}</td>
+            <td>{{this.author}}</td>
+            <td>{{this.publication_year}}</td>
+            <td>{{this.username}}</td>
+            <td><a href="/api/mw/checkout-book?book-id={{this.book_id}}">Checkout</a></td>
+          </tr>  
+        {{/unless}}
+      {{/each}}
+    </table>
+  {{else}}
+    <h3>There are no books available</h3>
   {{/if}}
 
-  {{#each this}}
-    <tr class="book-item">
-      <td>{{this.title}} {{this.subtitle}}</td>
-      <td>{{this.author}}</td>
-      <td>{{this.publication_year}}</td>
-      <td>{{this.username}}</td>
-      <td><a href="/api/mw/checkout-book?book-id={{this.book_id}}">Checkout</a></td>
-    </tr>
-  {{else}}
-    <h3>You have no items in your Library</h3>
-  {{/each}}
-</table>
 </div>

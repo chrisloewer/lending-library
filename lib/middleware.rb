@@ -48,6 +48,10 @@ get '/api/mw/checkout-book' do
   redirect '/bookbag'
 end
 
+get '/api/mw/return-book' do
+  mw_returnBook(params['checkout-id'])
+end
+
 
 # DATABASE MIDDLEWARE
 
@@ -143,7 +147,7 @@ def mw_checkoutBook(bookId)
   content.to_json.to_s
 end
 
-def mw_returnBook(checkoutId, returnCondition)
+def mw_returnBook(checkoutId, returnCondition=0)
   current_time = DateTime.now
 
   returnDate = current_time.strftime '%Y-%m-%d'

@@ -3,7 +3,6 @@
 
   <a href="/add-book" class="button button-light">Add Book</a>
 
-
   {{#if this.length}}
     <table class="library-list">
       <tr>
@@ -13,18 +12,18 @@
         <th>Edition</th>
         <th>Publication Year</th>
       </tr>
-    {{/if}}
-
-    {{#each this}}
-      <tr class="book-item">
-        <td>{{this.title}}</td>
-        <td>{{this.subtitle}}</td>
-        <td>{{this.author}}</td>
-        <td>{{this.edition}}</td>
-        <td>{{this.publication_year}}</td>
-      </tr>
-    {{else}}
-      <h3>You have no items in your Library</h3>
-    {{/each}}
-  </table>
+    
+      {{#each this}}
+        <tr class="book-item">
+          <td>{{this.title}}</td>
+          <td>{{this.subtitle}}</td>
+          <td>{{this.author}}</td>
+          <td>{{this.edition}}</td>
+          <td>{{this.publication_year}}</td>
+        </tr>
+      {{/each}}
+    </table>
+  {{else}}
+    <h3>You have no items in your Library</h3>
+  {{/if}}
 </div>
