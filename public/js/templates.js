@@ -89,14 +89,12 @@ templates['book_list'] = template({"1":function(container,depth0,helpers,partial
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"main-container\">\n  <h1>Books Available</h1>\n\n"
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.length : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "")
-    + "\n</div>\n";
+  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.length : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "");
 },"useData":true});
 templates['library'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "    <table class=\"library-list\">\n      <tr>\n        <th>Title</th>\n        <th>Subtitle</th>\n        <th>Author</th>\n        <th>Edition</th>\n        <th>Publication Year</th>\n      </tr>\n    \n"
+  return "    <table class=\"library-list\">\n      <tr>\n        <th>Title</th>\n        <th>Author</th>\n        <th>Edition</th>\n        <th>Publication Year</th>\n      </tr>\n    \n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},depth0,{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </table>\n";
 },"2":function(container,depth0,helpers,partials,data) {

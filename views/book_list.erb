@@ -1,8 +1,29 @@
-<div id="templateContent"></div>
+<script src="/js/bookList_tail.js"></script>
+
+
+<div class="main-container">
+  <h1>Books Available</h1>
+
+    <fieldset>
+       <select name="search_field" id="searchField">
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+          <option value="publication_year">Publication Year</option>
+      </select> 
+	  
+	  <br/>
+      <input type="text" name="search_for" placeholder="Search For" id="searchFor"><br/>
+      <input type="submit" class="button-light button-small" id="submitButton" value="Search">
+    </fieldset>
+
+  <div id="list_book_form"></div>
+
+</div>
+
 
 
 <script type="text/javascript" charset="utf-8">
   window.addEventListener('load', function() {
-    insertTemplateByPath('templateContent', 'book_list', '/api/mw/get-books');
+    insertTemplateByPath('list_book_form', 'book_list', '/api/mw/get-books');
   });
 </script>
