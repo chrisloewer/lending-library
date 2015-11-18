@@ -4,7 +4,7 @@ window.onload = function() {
     insertTemplateByPath('add_book_form', 'add_book_form', '/api/google-api/isbn-info?isbn='+input);
   });
 
-  document.getElementById('scanBarcode').addEventListener('click', function() {
+  document.getElementById('scanButton').addEventListener('click', function() {
     document.getElementById('scan_barcode_lightbox').style.visibility = "visible";
   });
 };
