@@ -258,12 +258,21 @@ input {
   }
 }
 
+.scan-barcode {
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
 // LIGHTBOXES
 .lightbox {
   position: fixed;
+  top: 0;
+  bottom: 0;
   visibility: hidden;
   background-color: $lightbox-dim;
-  
+
   .content {
     background-color: $main-color-2;
   }
