@@ -2,6 +2,8 @@
 $header-height: 50px;
 $header-offset: 100px;
 
+$lightbox-margin: 50px;
+
 $highlight-color-1-alpha: rgba(16, 42, 63, 0.9);
 $highlight-color-1: rgb(16, 42, 63);
 $highlight-color-2: #0b1d29;
@@ -260,21 +262,27 @@ input {
 
 .scan-barcode {
   img {
-    width: 100px;
-    height: 100px;
+    width: 25px;
+    height: 25px;
   }
 }
 
 // LIGHTBOXES
 .lightbox {
   position: fixed;
-  top: 0;
+  top: $header-height;
   bottom: 0;
   visibility: hidden;
   background-color: $lightbox-dim;
 
   .content {
     background-color: $main-color-2;
+    margin: $lightbox-margin;
+  }
+
+  .close-button {
+    position: absolute;
+    right: 0;
   }
 }
 
