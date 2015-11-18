@@ -49,7 +49,9 @@ get '/api/mw/checkout-book' do
 end
 
 get '/api/mw/return-book' do
-  mw_returnBook(params['checkout-id'])
+  mw_returnBookBookId(params['book-id'])
+
+  redirect '/library'
 end
 
 
@@ -147,12 +149,21 @@ def mw_checkoutBook(bookId)
   content.to_json.to_s
 end
 
-def mw_returnBook(checkoutId, returnCondition=0)
+def mw_returnBookBookId(bookId, returnCondition=0)
   current_time = DateTime.now
 
   returnDate = current_time.strftime '%Y-%m-%d'
   
-  content = Database.returnBook(checkoutId, returnDate, returnCondition)
+  content = Database.returnBookBookId(bookId, returnDate, returnCondition)
+  content.to_json.to_s
+end
+
+def mw_returnBookCheckoutId(checkoutId, returnCondition=0)
+  current_time = DateTime.now
+
+  returnDate = current_time.strftime '%Y-%m-%d'
+  
+  content = Database.returnBookCheckoutId(checkoutId, returnDate, returnCondition)
   content.to_json.to_s
 end
 # End Database Middleware
