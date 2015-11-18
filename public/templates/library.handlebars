@@ -15,11 +15,15 @@
     
       {{#each this}}
         <tr class="book-item">
-          <td>{{this.title}}</td>
-          <td>{{this.subtitle}}</td>
+          <td>{{this.title}} {{this.subtitle}}</td>
           <td>{{this.author}}</td>
           <td>{{this.edition}}</td>
           <td>{{this.publication_year}}</td>
+          {{#if book_status}}
+            <td><a href="/api/mw/return-book?book-id={{this.book_id}}">Return</a></td>
+          {{else}}
+            <td>Available</td>
+          {{/if}}
         </tr>
       {{/each}}
     </table>

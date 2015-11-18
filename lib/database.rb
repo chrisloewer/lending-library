@@ -16,6 +16,7 @@ DB.create_table? :books do
   String :publication_year
   Integer :user_id
   String :location
+  String :book_status
 end
 
 DB.create_table? :checkouts do
@@ -116,7 +117,14 @@ class Database
     DB.run(query)
   end
 
-  def self.returnBook(checkout_id, return_date, return_condition)
+  def self.returnBookBookId(book_id, return_date, return_condition)
+    query = "UPDATE books SET book_status = 0 WHERE book_id = #{book_id}"
+    DB.run(query)
+    query = "UPDATE checkouts SET return_date = '#{return_date}', return_condition = #{return_condition} WHERE book_id = #{book_id} and return_date is null"
+    DB.run(query)
+  end
+
+  def self.returnBookCheckoutId(checkout_id, return_date, return_condition)
     query = "UPDATE books SET book_status = 0 WHERE book_id = (select book_id from checkouts where checkout_id = #{checkout_id})"
     DB.run(query)
     query = "UPDATE checkouts SET return_date = '#{return_date}', return_condition = #{return_condition} WHERE checkout_id = #{checkout_id}"
