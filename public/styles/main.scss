@@ -12,6 +12,7 @@ $main-color-1: #cfdfe7;
 $main-color-2: #FFFFFF;
 $secondary-font-color: #FFFFFF;
 $alternate-color-1: #8f3530;
+$lightbox-dim: rgba(0, 0, 0, 0.5);
 $font-p-size: 20px;
 // Mix-ins
 @mixin border-radius($r) {
@@ -257,6 +258,16 @@ input {
   }
 }
 
+// LIGHTBOXES
+.lightbox {
+  position: fixed;
+  visibility: hidden;
+  background-color: $lightbox-dim;
+  
+  .content {
+    background-color: $main-color-2;
+  }
+}
 
 // FOOTER
 .footer {
