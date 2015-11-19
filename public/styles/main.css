@@ -25,6 +25,10 @@ input[type='submit'] {
   color: inherit; }
 
 .header {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   position: fixed;
   top: 0;
   height: 50px;
@@ -87,6 +91,10 @@ input[type='submit'] {
   vertical-align: middle; }
 
 .splash-content {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   display: inline-block;
   vertical-align: middle;
   font-weight: 300; }
