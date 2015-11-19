@@ -284,6 +284,7 @@ input {
     left: $lightbox-margin;
     right: $lightbox-margin;
     bottom: $lightbox-margin;
+    overflow-y: scroll;
     padding: 50px;
   }
 
