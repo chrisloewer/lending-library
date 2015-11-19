@@ -50,6 +50,10 @@ window.onload = function() {
 
         Quagga.onDetected(function(data) {
           var input = data.codeResult.code;
+
+          document.getElementById('scan_barcode_lightbox').style.visibility = "hidden";
+          Quagga.stop();
+          
           document.getElementById('isbnInput').value = input;
           insertTemplateByPath('add_book_form', 'add_book_form', '/api/google-api/isbn-info?isbn='+input);
       });
