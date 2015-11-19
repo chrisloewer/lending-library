@@ -84,13 +84,13 @@ class Database
 
   # Search All books by a field and search text
   def self.searchBooks(search_field, search_by)
-    query = "SELECT b.*, u.username FROM (books b join users u on u.user_id = b.user_id) where b.#{search_field} like '%#{search_by}%'"
+    query = "SELECT b.*, u.username FROM (books b join users u on u.user_id = b.user_id) where lower(b.#{search_field}) like '%#{search_by.downcase}%'"
     returnValue(DB[query].all)
   end
 
   # Search All books by titles
   def self.searchBooksByTitle(search_by)
-    query = "SELECT b.*, u.username FROM (books b join users u on u.user_id = b.user_id) where b.title like '%#{search_by}%' or b.subtitle like '%#{search_by}%'"
+    query = "SELECT b.*, u.username FROM (books b join users u on u.user_id = b.user_id) where lower(b.title) like '%#{search_by.downcase}%' or lower(b.subtitle) like '%#{search_by.downcase}%'"
     returnValue(DB[query].all)
   end
 

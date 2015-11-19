@@ -7,17 +7,17 @@
     <table class="library-list">
       <tr>
         <th>Title</th>
-        <th>Author</th>
-        <th>Edition</th>
-        <th>Publication Year</th>
+        <th class="author">Author</th>
+        <th class="edition">Edition</th>
+        <th class="pub-year">Publication Year</th>
       </tr>
     
       {{#each this}}
         <tr class="book-item">
           <td>{{this.title}} {{this.subtitle}}</td>
-          <td>{{this.author}}</td>
-          <td>{{this.edition}}</td>
-          <td>{{this.publication_year}}</td>
+          <td class="author">{{this.author}}</td>
+          <td class="edition">{{this.edition}}</td>
+          <td class="pub-year">{{this.publication_year}}</td>
           {{#if book_status}}
             <td><a href="/api/mw/return-book?book-id={{this.book_id}}">Return</a></td>
           {{else}}

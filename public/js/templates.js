@@ -18,7 +18,7 @@ templates['add_book_form'] = template({"1":function(container,depth0,helpers,par
     + "\">\n  </fieldset>\n  <fieldset>\n    <label>Author: </label>\n    <input type=\"text\" name=\"author\" placeholder=\"Author\" value=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.items : depth0)) != null ? stack1["0"] : stack1)) != null ? stack1.volumeInfo : stack1)) != null ? stack1.authors : stack1)) != null ? stack1["0"] : stack1), depth0))
     + "\">\n  </fieldset>\n  <fieldset>\n    <label>ISBN: </label>\n    <input type=\"text\" name=\"isbn\" placeholder=\"ISBN\" value=\""
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},((stack1 = ((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.items : depth0)) != null ? stack1["0"] : stack1)) != null ? stack1.volumeInfo : stack1)) != null ? stack1.industryIdentifiers : stack1)) != null ? stack1["0"] : stack1)) != null ? stack1.identifier : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0,((stack1 = ((stack1 = ((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.items : depth0)) != null ? stack1["0"] : stack1)) != null ? stack1.volumeInfo : stack1)) != null ? stack1.industryIdentifiers : stack1)) != null ? stack1["0"] : stack1)) != null ? stack1.identifier : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + "\">\n  </fieldset>\n  <fieldset>\n    <label>Publication Year: </label>\n    <input type=\"text\" name=\"publication_year\" placeholder=\"Publication Year\" value=\""
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.items : depth0)) != null ? stack1["0"] : stack1)) != null ? stack1.volumeInfo : stack1)) != null ? stack1.publishedDate : stack1), depth0))
     + "\">\n  </fieldset>\n\n  <fieldset>\n    <input  type=\"submit\" class=\"button-light button-small\" id=\"submitButton\" value=\"Add Book\">\n  </fieldset>\n</form>\n";
@@ -27,12 +27,12 @@ templates['bookbag'] = template({"1":function(container,depth0,helpers,partials,
     var stack1;
 
   return "    <table class=\"library-list\">\n      <tr>\n        <td>Title</td>\n        <th>Checkout Date</th>\n        <th>Due Date</th>\n        <th>Owner</th>\n      </tr>\n\n"
-    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},depth0,{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(depth0,depth0,{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </table>\n";
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return ((stack1 = helpers.unless.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.return_date : depth0),{"name":"unless","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+  return ((stack1 = helpers.unless.call(depth0,(depth0 != null ? depth0.return_date : depth0),{"name":"unless","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"3":function(container,depth0,helpers,partials,data) {
     var alias1=container.lambda, alias2=container.escapeExpression;
 
@@ -53,14 +53,14 @@ templates['bookbag'] = template({"1":function(container,depth0,helpers,partials,
     var stack1;
 
   return "<div class=\"main-container\">\n  <h1>Your Bookbag</h1>\n  \n"
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.length : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(5, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.length : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(5, data, 0),"data":data})) != null ? stack1 : "")
     + "</div>\n";
 },"useData":true});
 templates['book_list'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "    <table class=\"library-list\">\n      <tr>\n        <th>Title</th>\n        <th>Author</th>\n        <th>Publication Year</th>\n        <th>Owner</th>\n        <th></th>\n      </tr>\n    \n"
-    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},depth0,{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+  return "    <table class=\"library-list\">\n      <tr>\n        <th>Title</th>\n        <th class=\"author\">Author</th>\n        <th class=\"pub-year\">Publication Year</th>\n        <th>Owner</th>\n        <th></th>\n      </tr>\n    \n"
+    + ((stack1 = helpers.each.call(depth0,depth0,{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </table>\n";
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
@@ -69,14 +69,14 @@ templates['book_list'] = template({"1":function(container,depth0,helpers,partial
     + alias2(alias1((depth0 != null ? depth0.title : depth0), depth0))
     + " "
     + alias2(alias1((depth0 != null ? depth0.subtitle : depth0), depth0))
-    + "</td>\n          <td>"
+    + "</td>\n          <td class=\"author\">"
     + alias2(alias1((depth0 != null ? depth0.author : depth0), depth0))
-    + "</td>\n          <td>"
+    + "</td>\n          <td class=\"pub-year\">"
     + alias2(alias1((depth0 != null ? depth0.publication_year : depth0), depth0))
     + "</td>\n          <td>"
     + alias2(alias1((depth0 != null ? depth0.username : depth0), depth0))
     + "</td>\n"
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.book_status : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.program(5, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.book_status : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.program(5, data, 0),"data":data})) != null ? stack1 : "")
     + "       </tr>  \n";
 },"3":function(container,depth0,helpers,partials,data) {
     return "            <td>Checked out</td>\n";
@@ -89,13 +89,13 @@ templates['book_list'] = template({"1":function(container,depth0,helpers,partial
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.length : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "");
+  return ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.length : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "");
 },"useData":true});
 templates['library'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "    <table class=\"library-list\">\n      <tr>\n        <th>Title</th>\n        <th>Author</th>\n        <th>Edition</th>\n        <th>Publication Year</th>\n      </tr>\n    \n"
-    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},depth0,{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+  return "    <table class=\"library-list\">\n      <tr>\n        <th>Title</th>\n        <th class=\"author\">Author</th>\n        <th class=\"edition\">Edition</th>\n        <th class=\"pub-year\">Publication Year</th>\n      </tr>\n    \n"
+    + ((stack1 = helpers.each.call(depth0,depth0,{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </table>\n";
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
@@ -104,14 +104,14 @@ templates['library'] = template({"1":function(container,depth0,helpers,partials,
     + alias2(alias1((depth0 != null ? depth0.title : depth0), depth0))
     + " "
     + alias2(alias1((depth0 != null ? depth0.subtitle : depth0), depth0))
-    + "</td>\n          <td>"
+    + "</td>\n          <td class=\"author\">"
     + alias2(alias1((depth0 != null ? depth0.author : depth0), depth0))
-    + "</td>\n          <td>"
+    + "</td>\n          <td class=\"edition\">"
     + alias2(alias1((depth0 != null ? depth0.edition : depth0), depth0))
-    + "</td>\n          <td>"
+    + "</td>\n          <td class=\"pub-year\">"
     + alias2(alias1((depth0 != null ? depth0.publication_year : depth0), depth0))
     + "</td>\n"
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.book_status : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.program(5, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.book_status : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.program(5, data, 0),"data":data})) != null ? stack1 : "")
     + "        </tr>\n";
 },"3":function(container,depth0,helpers,partials,data) {
     return "            <td><a href=\"/api/mw/return-book?book-id="
@@ -125,7 +125,7 @@ templates['library'] = template({"1":function(container,depth0,helpers,partials,
     var stack1;
 
   return "<div class=\"main-container\">\n  <h1>Your Library</h1>\n\n  <a href=\"/add-book\" class=\"button button-light\">Add Book</a>\n\n"
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.length : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0,(depth0 != null ? depth0.length : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "")
     + "</div>\n";
 },"useData":true});
 })();

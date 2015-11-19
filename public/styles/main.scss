@@ -7,7 +7,8 @@ $highlight-color-1: rgb(16, 42, 63);
 $highlight-color-2: #0b1d29;
 $highlight-color-3: #9AB8D4;
 $highlight-color-4: #829BB2;
-$video-tint: rgba(50,48,50, 0.8);
+$video-tint: rgba(43,43,50, 0.3);
+$video-tint-2: rgba(20, 20, 29, 0.9);
 $main-color-1: #cfdfe7;
 $main-color-2: #FFFFFF;
 $secondary-font-color: #FFFFFF;
@@ -127,7 +128,6 @@ input[type='submit'] {
 .landing-splash {
   text-shadow: 0 0 3px #000;
   color: $secondary-font-color;
-  background-color: $video-tint;
 
   form {
     padding: 0;
@@ -138,6 +138,7 @@ input[type='submit'] {
 }
 
 .background-video-container {
+  background: url('/assets/splash.jpg') 50% 50% / cover no-repeat;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -152,6 +153,15 @@ input[type='submit'] {
     position: absolute;
     left: 0;
     top: 0;
+  }
+
+  .filter {
+    min-height: 100%;
+    min-width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: radial-gradient(circle, $video-tint, $video-tint-2);
   }
 }
 
@@ -227,6 +237,9 @@ input[type='submit'] {
     tr {
       border-bottom: 1px solid $highlight-color-4;
     }
+    tr:nth-child(2n) {
+      background-color: $main-color-1;
+    }
   }
 }
 
@@ -278,6 +291,10 @@ input {
   }
   .column:last-of-type {
     text-align: right;
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 
@@ -375,4 +392,82 @@ h3 {
 
 .hidden {
   display: none;
+}
+
+@media (max-width: 640px) { // phone
+  .section {
+
+    .text-block {
+      width: 90%;
+      padding: 0;
+    }
+
+    .column {
+      display: block;
+      width: 90%;
+      margin: 0 auto;
+      padding: 25px 0;
+    }
+  }
+
+  table {
+    .author {
+      display: none;
+    }
+  }
+
+  #add_book_form {
+    fieldset {
+      text-align: left;
+
+      label {
+        text-align: left;
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+  .footer {
+
+    .column {
+      display: none;
+    }
+    .column:first-of-type, .column:last-of-type {
+      display: inline-block;
+      width: 40%;
+    }
+  }
+}
+
+@media (max-width: 900px) { // tablet
+  .main-container {
+    table {
+      .pub-year, .edition {
+        display: none;
+      }
+
+      td {
+        padding: 15px;
+      }
+    }
+  }
+
+
+  .background-video-container {
+    .background-video {
+      display: none;
+    }
+  }
+
+  .section {
+    padding: 80px 0;
+
+    .text-block {
+      width: 85%;
+    }
+  }
+
+  .footer {
+    padding: 50px 10px 20px 10px;
+  }
 }

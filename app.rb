@@ -21,10 +21,18 @@ get '/' do
 end
 
 get '/library' do
+  unless logged_in?
+    redirect '/'
+  end
+
   erb :library
 end
 
 get '/bookbag' do
+  unless logged_in?
+    redirect '/'
+  end
+
   erb :bookbag
 end
 
@@ -37,6 +45,10 @@ get '/signup' do
 end
 
 get '/add-book' do
+  unless logged_in?
+    redirect '/'
+  end
+
   erb :add_book
 end
 
@@ -80,4 +92,12 @@ end
 
 def get_id
   User.authenticate(cookies[:u_token])
+end
+
+def logged_in?
+  if cookies[:u_token] && cookies[:u_name]
+    return true
+  end
+
+  return false
 end

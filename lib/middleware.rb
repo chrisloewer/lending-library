@@ -90,8 +90,7 @@ def mw_getBooks
 end
 
 def mw_getCurrentUserBooks
-  content = mw_getUserBooks(get_id)
-  content
+  mw_getUserBooks(get_id)
 end
 
 def mw_getUserBooks(userId)

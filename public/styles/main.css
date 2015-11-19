@@ -6,7 +6,7 @@ body, html {
   margin: 0; }
 
 body {
-  background-color: white;
+  background-color: #FFFFFF;
   font-weight: 200;
   font-size: 20px;
   line-height: 1.5; }
@@ -30,7 +30,7 @@ input[type='submit'] {
   height: 50px;
   width: 100%;
   background-color: rgba(16, 42, 63, 0.9);
-  color: white; }
+  color: #FFFFFF; }
 
 .header-left {
   display: inline-block;
@@ -93,14 +93,14 @@ input[type='submit'] {
 
 .landing-splash {
   text-shadow: 0 0 3px #000;
-  color: white;
-  background-color: rgba(50, 48, 50, 0.8); }
+  color: #FFFFFF; }
   .landing-splash form {
     padding: 0; }
   .landing-splash fieldset {
     padding: 5px 0; }
 
 .background-video-container {
+  background: url("/assets/splash.jpg") 50% 50%/cover no-repeat;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -114,12 +114,19 @@ input[type='submit'] {
     position: absolute;
     left: 0;
     top: 0; }
+  .background-video-container .filter {
+    min-height: 100%;
+    min-width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: radial-gradient(circle, rgba(43, 43, 50, 0.3), rgba(20, 20, 29, 0.9)); }
 
 .section {
   min-height: 100px;
   padding: 100px;
   text-align: center;
-  background-color: white; }
+  background-color: #FFFFFF; }
   .section .title {
     font-size: 48px;
     font-weight: 300;
@@ -163,7 +170,9 @@ input[type='submit'] {
     .main-container table td {
       padding: 0 20px; }
     .main-container table tr {
-      border-bottom: 1px solid #829bb2; }
+      border-bottom: 1px solid #829BB2; }
+    .main-container table tr:nth-child(2n) {
+      background-color: #cfdfe7; }
 
 form {
   padding: 20px; }
@@ -190,7 +199,7 @@ input {
   padding: 50px 20% 20px 20%;
   background-color: #102a3f;
   text-align: center;
-  color: white;
+  color: #FFFFFF;
   font-size: 16px; }
   .footer .column {
     text-align: left;
@@ -201,6 +210,8 @@ input {
     text-align: center; }
   .footer .column:last-of-type {
     text-align: right; }
+  .footer a {
+    text-decoration: none; }
 
 .button {
   border: 1px solid white;
@@ -235,10 +246,10 @@ input {
   cursor: pointer; }
 
 .button-light:hover {
-  background-color: #9ab8d4; }
+  background-color: #9AB8D4; }
 
 .button-light:active {
-  background-color: #829bb2; }
+  background-color: #829BB2; }
 
 .button-small {
   font-size: 20px;
@@ -285,3 +296,45 @@ h3 {
 
 .hidden {
   display: none; }
+
+@media (max-width: 640px) {
+  .section .text-block {
+    width: 90%;
+    padding: 0; }
+  .section .column {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    padding: 25px 0; }
+
+  table .author {
+    display: none; }
+
+  #add_book_form fieldset {
+    text-align: left; }
+    #add_book_form fieldset label {
+      text-align: left;
+      padding: 0;
+      margin: 0; }
+
+  .footer .column {
+    display: none; }
+  .footer .column:first-of-type, .footer .column:last-of-type {
+    display: inline-block;
+    width: 40%; } }
+@media (max-width: 900px) {
+  .main-container table .pub-year, .main-container table .edition {
+    display: none; }
+  .main-container table td {
+    padding: 15px; }
+
+  .background-video-container .background-video {
+    display: none; }
+
+  .section {
+    padding: 80px 0; }
+    .section .text-block {
+      width: 85%; }
+
+  .footer {
+    padding: 50px 10px 20px 10px; } }
