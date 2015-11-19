@@ -219,7 +219,7 @@ input[type='submit'] {
 .main-container {
   min-height: 100vh;
   min-height: calc(100vh - #{$header-offset});;
-  padding-top: $header-offset;
+  padding: $header-offset 0;
   text-align: center;
 
   .button {

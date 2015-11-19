@@ -6,6 +6,8 @@
   <div class="splash-content">
     <h1>Welcome to <span class="w400">BookBag</span></h1>
     <br/>
+
+    <% if !logged_in? %>
     <div class="button" id="splash-login-button">log in</div>
 
     <div class="hidden" id="form-container">
@@ -23,6 +25,14 @@
     </div>
 
     <a href="/signup" class="small-link">register</a>
+
+  <% else %>
+    <a href="/library">
+      <div class="button">Get Started</div>
+    </a>
+
+  <% end %>
+
   </div>
 
   <div class="background-video-container">
@@ -83,11 +93,11 @@
 </div>
 
 
-<div class="section">
-  <div class="title">
-    Reviews
-  </div>
-  <div class="column">Plaid bitters swag readymade, kogi fixie hella American Apparel before they sold out PBR Blue Bottle farm-to-table.</div>
-  <div class="column">Plaid bitters swag readymade, kogi fixie hella American Apparel before they sold out PBR Blue Bottle farm-to-table.</div>
-  <div class="column">Plaid bitters swag readymade, kogi fixie hella American Apparel before they sold out PBR Blue Bottle farm-to-table.</div>
-</div>
+<!--<div class="section">-->
+  <!--<div class="title">-->
+    <!--Reviews-->
+  <!--</div>-->
+  <!--<div class="column">Plaid bitters swag readymade, kogi fixie hella American Apparel before they sold out PBR Blue Bottle farm-to-table.</div>-->
+  <!--<div class="column">Plaid bitters swag readymade, kogi fixie hella American Apparel before they sold out PBR Blue Bottle farm-to-table.</div>-->
+  <!--<div class="column">Plaid bitters swag readymade, kogi fixie hella American Apparel before they sold out PBR Blue Bottle farm-to-table.</div>-->
+<!--</div>-->
