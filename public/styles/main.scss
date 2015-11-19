@@ -2,6 +2,8 @@
 $header-height: 50px;
 $header-offset: 100px;
 
+$lightbox-margin: 50px;
+
 $highlight-color-1-alpha: rgba(16, 42, 63, 0.9);
 $highlight-color-1: rgb(16, 42, 63);
 $highlight-color-2: #0b1d29;
@@ -13,6 +15,7 @@ $main-color-1: #cfdfe7;
 $main-color-2: #FFFFFF;
 $secondary-font-color: #FFFFFF;
 $alternate-color-1: #8f3530;
+$lightbox-dim: rgba(0, 0, 0, 0.5);
 $font-p-size: 20px;
 // Mix-ins
 @mixin border-radius($r) {
@@ -270,6 +273,59 @@ input {
   }
 }
 
+.scan-barcode {
+  img {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+// LIGHTBOXES
+.lightbox {
+  position: fixed;
+  top: $header-height;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  visibility: hidden;
+  background-color: $lightbox-dim;
+
+  .lightbox-content {
+    background-color: $main-color-2;
+    position: absolute;
+    top: $lightbox-margin;
+    left: $lightbox-margin;
+    right: $lightbox-margin;
+    bottom: $lightbox-margin;
+    overflow-y: scroll;
+    padding: 50px;
+  }
+
+  .close-lightbox-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+// BARCODE SCANNER
+.scanner-feed {
+  video {
+    width: 100%;
+    height: auto;
+    float: left;
+  }
+  canvas.drawingBuffer {
+    width: 100%;
+    height: auto;
+    float: left;
+    margin-left: -100%;
+  }
+}
 
 // FOOTER
 .footer {
