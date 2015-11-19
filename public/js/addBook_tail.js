@@ -11,7 +11,6 @@ window.onload = function() {
       {
         decoder: {
             drawBoundingBox: true,
-            drawScanLine: true,
             readers: ['ean_reader']
         }
       },
@@ -23,13 +22,20 @@ window.onload = function() {
         console.log("Starting Quagga...");
 
         Quagga.start();
+        var previousCode = "";
+        Quagga.onDetected(function(data) {
+                            if(data.codeResult.code != previousCode) {
+                                previousCode = data.codeResult.code;
+                                alert(previousCode);
+                            }
+                        });
       }
     );
   });
 
   document.getElementById('closeLightboxButton').addEventListener('click', function() {
     document.getElementById('scan_barcode_lightbox').style.visibility = "hidden";
-    
+
     Quagga.stop();
   })
 };

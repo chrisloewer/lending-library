@@ -277,8 +277,11 @@ input {
 
   .lightbox-content {
     background-color: $main-color-2;
-    position: relative;
-    margin: $lightbox-margin;
+    position: absolute;
+    top: $lightbox-margin;
+    left: $lightbox-margin;
+    right: $lightbox-margin;
+    bottom: $lightbox-margin;
     padding: 50px;
   }
 
@@ -295,7 +298,17 @@ input {
 
 // BARCODE SCANNER
 .scanner-feed {
-  
+  video {
+    width: 100%;
+    height: auto;
+    float: left;
+  }
+  canvas.drawingBuffer {
+    width: 100%
+    height: auto;
+    float: left;
+    margin-left: -100%;
+  }
 }
 
 // FOOTER
