@@ -194,6 +194,42 @@ input {
 .add-book input {
   width: 300px; }
 
+.img-button {
+  width: 25px;
+  height: 25px; }
+
+.lightbox {
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.5); }
+  .lightbox .lightbox-content {
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    right: 50px;
+    bottom: 50px;
+    overflow-y: scroll;
+    padding: 50px; }
+  .lightbox .close-lightbox-button {
+    position: absolute;
+    top: 0;
+    right: 0; }
+
+.scanner-feed video {
+  width: 100%;
+  height: auto;
+  float: left; }
+.scanner-feed canvas.drawingBuffer {
+  width: 100%;
+  height: auto;
+  float: left;
+  margin-left: -100%; }
+
 .footer {
   min-height: 150px;
   padding: 50px 20% 20px 20%;
@@ -310,8 +346,15 @@ h3 {
   table .author {
     display: none; }
 
+  .add-book input {
+    width: 260px;
+    display: block;
+    margin: 0 auto; }
+
   #add_book_form fieldset {
-    text-align: left; }
+    text-align: left;
+    padding-left: 0;
+    padding-right: 0; }
     #add_book_form fieldset label {
       text-align: left;
       padding: 0;
@@ -335,6 +378,16 @@ h3 {
     padding: 80px 0; }
     .section .text-block {
       width: 85%; }
+
+  .lightbox h3 {
+    margin: 10px; }
+  .lightbox .lightbox-content {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    padding: 20px;
+    overflow: hidden; }
 
   .footer {
     padding: 50px 10px 20px 10px; } }
