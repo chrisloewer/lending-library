@@ -277,13 +277,25 @@ input {
 
   .lightbox-content {
     background-color: $main-color-2;
+    position: relative;
     margin: $lightbox-margin;
+    padding: 50px;
   }
 
-  .close-button {
+  .close-lightbox-button {
     position: absolute;
+    top: 0;
     right: 0;
+    img {
+      width: 50px;
+      height: 50px;
+    }
   }
+}
+
+// BARCODE SCANNER
+.scanner-feed {
+  
 }
 
 // FOOTER

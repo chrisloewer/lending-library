@@ -9,12 +9,6 @@ window.onload = function() {
 
     Quagga.init(
       {
-        inputStream: {
-            constraints: {
-                width: '100%',
-                height: '100%'
-            }
-        },
         decoder: {
             drawBoundingBox: true,
             drawScanLine: true,
@@ -32,4 +26,10 @@ window.onload = function() {
       }
     );
   });
+
+  document.getElementById('closeLightboxButton').addEventListener('click', function() {
+    document.getElementById('scan_barcode_lightbox').style.visibility = "hidden";
+    
+    Quagga.stop();
+  })
 };
